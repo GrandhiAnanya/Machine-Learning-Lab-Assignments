@@ -1,27 +1,27 @@
 import random
-def mean(list):
+def mean(lst):
    sum = 0
-   for i in list:
+   for i in lst:
      sum += i
 
-   mean = sum / len(list)
-   print("mean of the list: ",mean)
+   mean = sum / len(lst)
+   return mean
 
-def median(list):
-    if len(list)%2==0:
-     pos1=(len(list)//2)-1
-     pos2=(len(list)//2)
-     median=(list[pos1]+list[pos2])/2
-     print("\nmedian of the list: ",median)
+def median(lst):
+    if len(lst)%2==0:
+     pos1=(len(lst)//2)-1
+     pos2=(len(lst)//2)
+     median=(lst[pos1]+lst[pos2])/2
+     return median
     else:
-      pos = (len(list)) // 2
-      median = list[pos]
-      print("\nmedian of the list: ",median)
+      pos = (len(lst)) // 2
+      median = lst[pos]
+      return median
 
-def mode(list):
+def mode(lst):
    frequency = {}
 
-   for i in list:
+   for i in lst:
      if i in frequency:
         frequency[i] += 1
      else:
@@ -33,18 +33,21 @@ def mode(list):
    for key in frequency:
      if frequency[key] == max_freq:
         mode.append(key)
-   print("\nmode of the list: ",mode)
+   return mode
    
    
   
-list=[]
+lst=[]
 for i in range(100):
-    list.append(random.randint(100, 150))
+    lst.append(random.randint(100, 150))
 
-
-mean(list)
-median(list)
-mode(list)
+print (lst)
+mean=mean(lst)
+print("mean of the list: ",mean)
+median=median(lst)
+print("median of the list: ",median)
+mode=mode(lst)
+print("mode of the list: ",mode)
 
 
 

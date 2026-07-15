@@ -7,8 +7,10 @@ def vowels(s):
         count_v+=1
       else:
         count_c+=1
-    print("number of vowels in the string are", count_v)
-    print("number of consonants in the string are", count_c)    
+    return count_c,count_v    
+        
    
 s = input ("enter a string\n")
-vowels(s)
+count_c,count_v=vowels(s)
+print("number of vowels in the string are", count_v)
+print("number of consonants in the string are", count_c)

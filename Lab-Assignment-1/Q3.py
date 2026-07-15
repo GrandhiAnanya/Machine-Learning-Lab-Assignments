@@ -6,9 +6,10 @@ def similarity(list1,list2):
         if list1[i]==list2[j]:
             count+=1
 
-    print("number of elements similar in the list are : ",count)
+    return count
 
 
 list1 = [2, 5, 8, 10, 15, 20]
 list2 = [1, 5, 7, 10, 14, 20]
-similarity(list1,list2)
+count=similarity(list1,list2)
+print("number of elements similar in the list are : ",count)

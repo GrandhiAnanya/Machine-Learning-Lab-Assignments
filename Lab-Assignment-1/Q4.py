@@ -19,15 +19,17 @@ def transpose(n,m):
       for j in range(m):
         m2[j][i]=m1[i][j]
 
-    print("original matix:\n")
-    for i in (m1):
-      print(i)
-    print("\ntranspose of the matrix:\n")
-    for i in (m2):
-      print(i)
+    return m1,m2
 
 
 
 n = int(input("Enter the number of rows in Matrix 1: "))
 m = int(input("Enter the number of columns in Matrix 1: "))
-transpose(n,m)
+m1,m2=transpose(n,m)
+print("original matix:\n")
+for i in (m1):
+      print(i)
+print("\ntranspose of the matrix:\n")
+for i in (m2):
+      print(i)
+

@@ -37,13 +37,10 @@ def matrixmul(n,m,p,q):
      for j in range(q):
         for k in range(m):
             mul[i][j] += m1[i][k] * m2[k][j]
-
-    print("\nProduct of the two matrices:")
-    for i in range(n):
-     print(mul[i])
+  
+    return mul
+    
    
-
-
 
 n = int(input("Enter the number of rows in Matrix 1: "))
 m = int(input("Enter the number of columns in Matrix 1: "))
@@ -51,6 +48,9 @@ m = int(input("Enter the number of columns in Matrix 1: "))
 p = int(input("Enter the number of rows in Matrix 2: "))
 q = int(input("Enter the number of columns in Matrix 2: "))
 
-matrixmul(n,m,p,q)
+mul=matrixmul(n,m,p,q)
 
+print("\nProduct of the two matrices:")
+for i in range(n):
+     print(mul[i])
 
