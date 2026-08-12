@@ -1,8 +1,13 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
+import time
+import tracemalloc
+
 
 #chatgpt used
+start = time.perf_counter()
+tracemalloc.start()
 def load_data():
     df=pd.read_excel(
         "Lab Session Data.xlsx",
@@ -73,3 +78,13 @@ for column in df.columns:
           f"{np_var:>15.4f}"
           f"{std:>15.4f}"
           f"{np_std:>15.4f}")
+
+current, peak = tracemalloc.get_traced_memory()
+
+print("Current Memory:", current, "bytes")
+print("Peak Memory:", peak, "bytes")
+
+tracemalloc.stop()
+
+end = time.perf_counter()
+print("Execution Time:", end - start, "seconds")

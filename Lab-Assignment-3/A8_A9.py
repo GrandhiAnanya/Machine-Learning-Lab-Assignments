@@ -1,6 +1,12 @@
 import numpy as np
 import pandas as pd
 import math
+import time
+import tracemalloc
+
+
+start = time.perf_counter()
+tracemalloc.start()
 
 def load_data():
     df=pd.read_excel(
@@ -56,6 +62,16 @@ print(f"\n Variance value : {var}")
 print(f"\n Varaince value using numpy : {var1}")
 print(f"\n Standar deviation value : {sd}")
 print(f"\n Standar deviation value using numpy : {sd1}")
+
+current, peak = tracemalloc.get_traced_memory()
+
+print("Current Memory:", current, "bytes")
+print("Peak Memory:", peak, "bytes")
+
+tracemalloc.stop()
+
+end = time.perf_counter()
+print("Execution Time:", end - start, "seconds")
 
 
 
