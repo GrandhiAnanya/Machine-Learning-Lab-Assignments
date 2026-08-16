@@ -77,7 +77,7 @@ df=load_data()
 df = df.drop(columns='image_name')
 X = df.drop(columns="person_id").to_numpy()
 y = df["person_id"].to_numpy()
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3) 
 scores=[]
 scores_lib=[]
 for i in range(1,11):

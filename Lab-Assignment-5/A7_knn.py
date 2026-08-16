@@ -86,7 +86,7 @@ df = df.drop(columns='image_name')
 X = df.drop(columns="person_id").to_numpy()
 y = df["person_id"].to_numpy()
 k=3
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3) 
 fit(X_train,y_train,k) 
 classes=knn(X_test,X_train,y_train,k) #predict
 print("test\tpv\tav")
