@@ -14,6 +14,8 @@ times=[]
 for i in range(10):
     start_time = time.perf_counter()
     df=load_data()
+    selected_classes = ["A", "Z"]
+    df = df[df["person_id"].isin(selected_classes)]
     df = df.drop(columns='image_name')
     X = df.drop(columns="person_id").to_numpy()
     y = df["person_id"].to_numpy()
@@ -21,15 +23,16 @@ for i in range(10):
     neigh = KNeighborsClassifier(n_neighbors=3)
     neigh.fit(X_train, y_train)
     p=neigh.predict(X_test)
+    print("test\tpv\tav")
+    for i in range(len(p)):
+        print(f"{i}\t{p[i]}\t{y_test[i]}")
+    print (f"Acuuracy score:{neigh.score(X_test, y_test)}")
     end_time = time.perf_counter()
+        
     times.append(end_time - start_time)
-            
+        
 average_time = sum(times) / len(times)
 
-print("test\tpv\tav")
-for i in range(len(p)):
-    print(f"{i}\t{p[i]}\t{y_test[i]}")
-print (f"Acuuracy score:{neigh.score(X_test, y_test)}")
 accuracy = accuracy_score(y_test, p)
 
 precision = precision_score(

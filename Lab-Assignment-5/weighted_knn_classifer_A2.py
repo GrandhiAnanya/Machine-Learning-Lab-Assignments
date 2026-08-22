@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split 
-from sklearn.neighbors import KNeighborsClassifier  
+from sklearn.neighbors import KNeighborsClassifier
+import time  
 
 def load_data():
     df=pd.read_csv("features.csv")
@@ -86,19 +87,70 @@ def score(classes,y_test):
     accuracy=total_right/len(y_test)
     return accuracy
 
-df=load_data()
-df = df.drop(columns='image_name')
-X = df.drop(columns="person_id").to_numpy()
-y = df["person_id"].to_numpy()
-k=3
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)  
-classes=wknn(X_test,X_train,y_train,k)
+
+times=[]
+for i in range(10):
+    start_time = time.perf_counter()
+    df=load_data()
+    df = df.drop(columns='image_name')
+    X = df.drop(columns="person_id").to_numpy()
+    y = df["person_id"].to_numpy()
+    k=3
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)  
+    classes=wknn(X_test,X_train,y_train,k)
+    end_time = time.perf_counter()
+    times.append(end_time - start_time)
+    
+average_time = sum(times) / len(times)
 print("test\tpv\tav")
 for i in range(len(X_test)):
     print(f"{i}\t{classes[i]}\t{y_test[i]}")
 
-ascore=score(classes,y_test)
-print(f"\n Accuracy score:{ascore}")
+correct = 0
+tp = 0
+fp = 0
+fn = 0
+
+for i in range(len(y_test)):
+
+    predicted = classes[i]
+    actual = y_test[i]
+
+    # Accuracy
+    if predicted == actual:
+        correct += 1
+
+    # Assuming A is the positive class
+    if predicted == "A" and actual == "A":
+        tp += 1
+
+    elif predicted == "A" and actual != "A":
+        fp += 1
+
+    elif predicted != "A" and actual == "A":
+        fn += 1
+
+
+accuracy = correct / len(y_test)
+
+precision = tp / (tp + fp) if (tp + fp) != 0 else 0
+
+recall = tp / (tp + fn) if (tp + fn) != 0 else 0
+
+f1_score = (
+    2 * precision * recall / (precision + recall)
+    if (precision + recall) != 0
+    else 0
+)
+
+print("Average computational time: ",average_time)
+print("Accuracy :", accuracy)
+print("Precision:", precision)
+print("Recall   :", recall)
+print("F1-score :", f1_score)
+
+'''ascore=score(classes,y_test)
+print(f"\n Accuracy score:{ascore}")'''
  
 
 
