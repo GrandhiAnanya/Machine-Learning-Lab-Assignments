@@ -28,6 +28,12 @@ grid_search = GridSearchCV(
 )
 
 grid_search.fit(X_train, y_train)
+mean_scores = grid_search.cv_results_['mean_test_score']
+params = grid_search.cv_results_['params']
+
+# Print each mean CV score with its corresponding parameters
+for mean, param in zip(mean_scores, params):
+    print(f"Mean: {mean:.4f} | Params: {param}")
 print("Best Hyperparameters:")
 print(grid_search.best_params_)
 print("\nBest Cross-Validation Accuracy:")
