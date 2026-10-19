@@ -9,38 +9,18 @@ from sklearn.metrics import accuracy_score
 
 from lime.lime_tabular import LimeTabularExplainer
 
-
-
-# 1. LOAD DATASET
-
-
 df = pd.read_csv("features.csv")
 
 print("Dataset shape:", df.shape)
 print(df.head())
 
-
-
-# 2. SEPARATE FEATURES AND TARGET
-
-
 X = df.drop(columns=['person_id', 'image_name'])
 y = df['person_id']
-
-
-
-# 3. ENCODE PERSON IDs
-
 
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(y)
 
 print("\nNumber of classes:", len(label_encoder.classes_))
-
-
-
-# 4. TRAIN-TEST SPLIT
-
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -49,10 +29,6 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42,
     stratify=y
 )
-
-
-
-# 5. CREATE PIPELINE
 
 
 pipeline = Pipeline([
@@ -64,32 +40,13 @@ pipeline = Pipeline([
     ))
 ])
 
-
-
-# 6. TRAIN PIPELINE
-
-
-print("\nTraining pipeline...")
-
 pipeline.fit(X_train, y_train)
-
-print("Training completed.")
-
-
-
-# 7. TEST PIPELINE
-
 
 y_pred = pipeline.predict(X_test)
 
 accuracy = accuracy_score(y_test, y_pred)
 
 print("\nPipeline Accuracy:", accuracy)
-
-
-
-# 8. CREATE LIME EXPLAINER
-
 
 explainer = LimeTabularExplainer(
     X_train.values,
@@ -98,11 +55,6 @@ explainer = LimeTabularExplainer(
     mode='classification',
     random_state=42
 )
-
-
-
-# 9. SELECT A TEST SAMPLE
-
 
 sample_index = 0
 
@@ -121,20 +73,12 @@ print("Predicted class:",
       label_encoder.inverse_transform([predicted_class])[0])
 
 
-
-# 10. CREATE LIME EXPLANATION
-
-
 explanation = explainer.explain_instance(
     sample,
     pipeline.predict_proba,
     num_features=10,
     top_labels=5
 )
-
-
-
-# 11. DISPLAY EXPLANATION
 
 
 print("\nLIME Explanation:")
@@ -145,9 +89,6 @@ print(
     )
 )
 
-
-
-# 12. DISPLAY IN BROWSER
 
 explanation.save_to_file("lime_explanation.html")
 
